@@ -49,13 +49,30 @@ let checkBoardHorizontal = () => {
 }
 
 let checkBoardVertical = () => {
-  let tmpArr = '';
-  for (let i = 0; i < board.length; board++) {
-    console.log(board[0][i]);
+  let columnTmp = '';
+  for (let i = 0; i < board.length; i++) {
+    for (let j = 0; j < board.length; j++) {
+      columnTmp += board[j][i];
+    }
+    let count_O = columnTmp.match(/\O/gi);
+    let count_X = columnTmp.match(/\X/gi);
+
+    if (count_O !== null && count_O.length > 2) {
+      alert('Game over O wins')
+      return;
+    }
+
+    if (count_X !== null && count_X.length > 2) {
+      alert('Game over X wins')
+      return;
+    }
+    console.log(columnTmp);
+    columnTmp = ''
   }
 }
 
 let checkBoard = () => {
   checkBoardHorizontal();
+  checkBoardVertical();
 }
 
