@@ -1,3 +1,7 @@
+.conatiner {
+  width: 100%;
+}
+
 .row {
   display: flex;
   width: 100%;
@@ -15,4 +19,31 @@ div .field {
   /* min-height: 15em; */
   text-align: center;
   padding: 16%;
+}
+
+.field > span{
+  font-size: 5em;
+}
+
+.list-nav {
+  display: flex;
+  list-style: none;
+}
+
+.list-nav > li {
+  width: 50%;
+}
+
+.btn {
+  border: 1px solid;
+  padding: 1%;
+  font-size: 15px;
+  font-family: fantasy;
+  width: 60%;
+  background: none;
+}
+
+.btn-success {
+   background: orangered;
+   color: white;
 }
