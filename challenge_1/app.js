@@ -60,10 +60,19 @@ let checkBoardVertical = () => {
   }
 }
 
-let checkDiagonal = () => {
+let checkMainMajorDiagonal = () => {
   let tmpDia = '';
   for (let i = 0; i < board.length; i++) {
     tmpDia += board[i][i];
+  }
+  checkTrio(tmpDia);
+}
+
+let checkMainMinorDiagonal = () => {
+  let tmpDia = '';
+  let row = 0;
+  for (let i = board.length - 1; i >= 0; i--) {
+    tmpDia += board[row++][i];
   }
   checkTrio(tmpDia);
 }
@@ -86,7 +95,8 @@ let checkTrio = (trio) => {
 let checkBoard = () => {
   checkBoardHorizontal();
   checkBoardVertical();
-  checkDiagonal();
+  checkMainMajorDiagonal();
+  checkMainMinorDiagonal();
 }
 
 let showWinner = (text) => {
