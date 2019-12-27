@@ -6,6 +6,7 @@ let board = [
   Array.from({ length: 3 }, () => 0)
 ];
 
+// Click handler for squares
 let playMove = (e) => {
   // Prevent click on the child element
   if (e.target.localName !== 'div') {
@@ -15,12 +16,16 @@ let playMove = (e) => {
   let position = e.target.dataset;
   if (!validateMove(position)) {
     move = move === 'X' ? 'O' : 'X';
-    board[position.x][position.y] = move === 'X' ? 1 : 2
+    board[position.x][position.y] = move;
     e.target.children[0].innerHTML = move;
-    // Check if game is
-    checkBoardHorizontal()
+    // Check if game is over
+    checkBoard();
   }
-  // console.log(board, position)
+}
+
+// Attach click listener to the squares
+for (let field of fields) {
+  field.onclick = playMove;
 }
 
 let validateMove = (position) => {
@@ -28,20 +33,29 @@ let validateMove = (position) => {
 }
 
 let checkBoardHorizontal = () => {
-  console.log(board)
+  // console.log(board)
   for (let row of board) {
-    console.log(row.reduce((acc, nemo) => acc + nemo, ''));
-    if (row.reduce((acc, memo) => acc + memo) === 6) {
-      console.log('Game over O wins')
-      // return true;
+    let count_O = row.join('').match(/\O/gi);
+    let count_X = row.join('').match(/\X/gi);
+
+    if (count_O !== null && count_O.length > 2) {
+      alert('Game over O wins')
     }
-    if (row.reduce((acc, memo) => acc + memo) === 3) {
-      console.log('Game over X wins')
-      // return true;
+
+    if (count_X !== null && count_X.length > 2) {
+      alert('Game over X wins')
     }
   }
 }
 
-for (let field of fields) {
-  field.onclick = playMove;
+let checkBoardVertical = () => {
+  let tmpArr = '';
+  for (let i = 0; i < board.length; board++) {
+    console.log(board[0][i]);
+  }
 }
+
+let checkBoard = () => {
+  checkBoardHorizontal();
+}
+
