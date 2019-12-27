@@ -1,16 +1,17 @@
 let fields = document.getElementsByClassName('field');
 let resetBtn = document.getElementById('resetGame');
-let move = 'X';
-let gameCount = 1;
-let turns = 1;
-let gameIsOver = false;
+let move = 'X', gameCount = 1, turns = 1, gameIsOver = false;
 let board = [
   Array.from({ length: 3 }, () => 0),
   Array.from({ length: 3 }, () => 0),
   Array.from({ length: 3 }, () => 0)
 ];
 
-// Click handler for squares
+/* ==== Click handler for squares ====
+  Attach to each square and fired on square click it
+  checks if the move is valid and switches between
+  players then checks the board in case the game is over.
+*/
 let playMove = (e) => {
   // Prevent click on the child element
   if (e.target.localName !== 'div') {
@@ -27,8 +28,14 @@ let playMove = (e) => {
     checkBoard();
   }
 }
+// Attach click listener to the squares
+for (let field of fields) {
+  field.onclick = playMove;
+}
 
-// Click handler for reset button
+/* ==== Click handler for reset button ====
+  Clears the message and the board then increments the game count.
+*/
 resetBtn.onclick = () => {
   showMessage('');
   for (let field of fields) {
@@ -40,14 +47,17 @@ resetBtn.onclick = () => {
   turns = 1;
 }
 
-// Attach click listener to the squares
-for (let field of fields) {
-  field.onclick = playMove;
-}
+/*
+  Validate the user move to prevent mutating the occupied board
+*/
 
 let validateMove = (position) => {
   return board[position.x][position.y];
 }
+
+/*
+  Check the board rows to find a winning player
+*/
 
 let checkBoardHorizontal = () => {
   for (let row of board) {
@@ -56,6 +66,10 @@ let checkBoardHorizontal = () => {
     }
   }
 }
+
+/*
+  Check the board columns to find a winning player
+*/
 
 let checkBoardVertical = () => {
   let columnTmp = '';
@@ -70,6 +84,10 @@ let checkBoardVertical = () => {
   }
 }
 
+/*
+  Check the board major diagonal to find a winning player
+*/
+
 let checkMainMajorDiagonal = () => {
   let tmpDia = '';
   for (let i = 0; i < board.length; i++) {
@@ -77,6 +95,10 @@ let checkMainMajorDiagonal = () => {
   }
   return checkTrio(tmpDia);
 }
+
+/*
+  Check the board minor to find a winning player
+*/
 
 let checkMainMinorDiagonal = () => {
   let tmpDia = '';
@@ -86,6 +108,10 @@ let checkMainMinorDiagonal = () => {
   }
   return checkTrio(tmpDia);
 }
+
+/*
+ Checks for a wining player
+*/
 
 let checkTrio = (trio) => {
   let count_O = trio.match(/\O/gi);
@@ -102,6 +128,12 @@ let checkTrio = (trio) => {
   }
 }
 
+/*
+  Runs all tests to check if there is a wining player
+  and announce a draw and ends the game if there are
+  no turns left when the board is full.
+*/
+
 let checkBoard = () => {
   if (checkBoardHorizontal()
     || checkBoardVertical()
@@ -114,6 +146,10 @@ let checkBoard = () => {
     showMessage('Draw');
   }
 }
+
+/*
+  Show messages to the user on the DOM.
+*/
 
 let showMessage = (text) => {
   let el = document.querySelector('#result');
