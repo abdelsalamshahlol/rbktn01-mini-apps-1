@@ -12,4 +12,7 @@
 div .field {
   height: 100px;
   min-width: 50%;
+  /* min-height: 15em; */
+  text-align: center;
+  padding: 16%;
 }
