@@ -1,10 +1,12 @@
 let fields = document.getElementsByClassName('field');
+let resetBtn = document.getElementById('resetGame');
 let move = 'X';
 let board = [
   Array.from({ length: 3 }, () => 0),
   Array.from({ length: 3 }, () => 0),
   Array.from({ length: 3 }, () => 0)
 ];
+let gameCount = 1;
 
 // Click handler for squares
 let playMove = (e) => {
@@ -17,10 +19,18 @@ let playMove = (e) => {
   if (!validateMove(position)) {
     move = move === 'X' ? 'O' : 'X';
     board[position.x][position.y] = move;
-    e.target.children[0].innerHTML = move;
+    e.target.children[0].textContent = move;
     // Check if game is over
     checkBoard();
   }
+}
+
+// Click handler for reset button
+resetBtn.onclick = () => {
+  for (let field of fields) {
+    field.children[0].textContent = '';
+  }
+  board = board.map((row) => Array.from({ length: 3 }, () => 0));
 }
 
 // Attach click listener to the squares
@@ -39,11 +49,11 @@ let checkBoardHorizontal = () => {
     let count_X = row.join('').match(/\X/gi);
 
     if (count_O !== null && count_O.length > 2) {
-      alert('Game over O wins')
+      showWinner('Game over player O wins')
     }
 
     if (count_X !== null && count_X.length > 2) {
-      alert('Game over X wins')
+      showWinner('Game over player X wins')
     }
   }
 }
@@ -58,12 +68,12 @@ let checkBoardVertical = () => {
     let count_X = columnTmp.match(/\X/gi);
 
     if (count_O !== null && count_O.length > 2) {
-      alert('Game over O wins')
+      showWinner('Game over player O wins')
       return;
     }
 
     if (count_X !== null && count_X.length > 2) {
-      alert('Game over X wins')
+      showWinner('Game over player X wins')
       return;
     }
     console.log(columnTmp);
@@ -76,3 +86,8 @@ let checkBoard = () => {
   checkBoardVertical();
 }
 
+let showWinner = (text) => {
+  let el = document.querySelector('#result');
+  el.innerHTML = text;
+  el.style.setProperty('display', 'block');
+}
