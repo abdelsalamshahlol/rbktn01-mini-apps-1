@@ -27,6 +27,7 @@ let playMove = (e) => {
 
 // Click handler for reset button
 resetBtn.onclick = () => {
+  showWinner('');
   for (let field of fields) {
     field.children[0].textContent = '';
   }
@@ -43,18 +44,8 @@ let validateMove = (position) => {
 }
 
 let checkBoardHorizontal = () => {
-  // console.log(board)
   for (let row of board) {
-    let count_O = row.join('').match(/\O/gi);
-    let count_X = row.join('').match(/\X/gi);
-
-    if (count_O !== null && count_O.length > 2) {
-      showWinner('Game over player O wins')
-    }
-
-    if (count_X !== null && count_X.length > 2) {
-      showWinner('Game over player X wins')
-    }
+    checkTrio(row.join(''));
   }
 }
 
@@ -64,30 +55,41 @@ let checkBoardVertical = () => {
     for (let j = 0; j < board.length; j++) {
       columnTmp += board[j][i];
     }
-    let count_O = columnTmp.match(/\O/gi);
-    let count_X = columnTmp.match(/\X/gi);
+    checkTrio(columnTmp);
+    columnTmp = '';
+  }
+}
 
-    if (count_O !== null && count_O.length > 2) {
-      showWinner('Game over player O wins')
-      return;
-    }
+let checkDiagonal = () => {
+  let tmpDia = '';
+  for (let i = 0; i < board.length; i++) {
+    tmpDia += board[i][i];
+  }
+  checkTrio(tmpDia);
+}
 
-    if (count_X !== null && count_X.length > 2) {
-      showWinner('Game over player X wins')
-      return;
-    }
-    console.log(columnTmp);
-    columnTmp = ''
+let checkTrio = (trio) => {
+  let count_O = trio.match(/\O/gi);
+  let count_X = trio.match(/\X/gi);
+
+  if (count_O !== null && count_O.length > 2) {
+    showWinner('Game over player O wins');
+    return;
+  }
+
+  if (count_X !== null && count_X.length > 2) {
+    showWinner('Game over player X wins');
+    return;
   }
 }
 
 let checkBoard = () => {
   checkBoardHorizontal();
   checkBoardVertical();
+  checkDiagonal();
 }
 
 let showWinner = (text) => {
   let el = document.querySelector('#result');
   el.innerHTML = text;
-  el.style.setProperty('display', 'block');
 }
