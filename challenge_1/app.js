@@ -1,12 +1,14 @@
 let fields = document.getElementsByClassName('field');
 let resetBtn = document.getElementById('resetGame');
 let move = 'X';
+let gameCount = 1;
+let turns = 1;
+let gameIsOver = false;
 let board = [
   Array.from({ length: 3 }, () => 0),
   Array.from({ length: 3 }, () => 0),
   Array.from({ length: 3 }, () => 0)
 ];
-let gameCount = 1;
 
 // Click handler for squares
 let playMove = (e) => {
@@ -16,10 +18,11 @@ let playMove = (e) => {
   }
 
   let position = e.target.dataset;
-  if (!validateMove(position)) {
-    move = move === 'X' ? 'O' : 'X';
+  if (!validateMove(position) && !gameIsOver) {
     board[position.x][position.y] = move;
     e.target.children[0].textContent = move;
+    move = move === 'X' ? 'O' : 'X';
+    turns++;
     // Check if game is over
     checkBoard();
   }
@@ -27,11 +30,14 @@ let playMove = (e) => {
 
 // Click handler for reset button
 resetBtn.onclick = () => {
-  showWinner('');
+  showMessage('');
   for (let field of fields) {
     field.children[0].textContent = '';
   }
   board = board.map((row) => Array.from({ length: 3 }, () => 0));
+  document.querySelector('#game_count').innerHTML = ++gameCount;
+  gameIsOver = false;
+  turns = 1;
 }
 
 // Attach click listener to the squares
@@ -45,7 +51,9 @@ let validateMove = (position) => {
 
 let checkBoardHorizontal = () => {
   for (let row of board) {
-    checkTrio(row.join(''));
+    if (checkTrio(row.join(''))) {
+      return true;
+    }
   }
 }
 
@@ -55,7 +63,9 @@ let checkBoardVertical = () => {
     for (let j = 0; j < board.length; j++) {
       columnTmp += board[j][i];
     }
-    checkTrio(columnTmp);
+    if (checkTrio(columnTmp)) {
+      return true;
+    }
     columnTmp = '';
   }
 }
@@ -65,7 +75,7 @@ let checkMainMajorDiagonal = () => {
   for (let i = 0; i < board.length; i++) {
     tmpDia += board[i][i];
   }
-  checkTrio(tmpDia);
+  return checkTrio(tmpDia);
 }
 
 let checkMainMinorDiagonal = () => {
@@ -74,7 +84,7 @@ let checkMainMinorDiagonal = () => {
   for (let i = board.length - 1; i >= 0; i--) {
     tmpDia += board[row++][i];
   }
-  checkTrio(tmpDia);
+  return checkTrio(tmpDia);
 }
 
 let checkTrio = (trio) => {
@@ -82,24 +92,30 @@ let checkTrio = (trio) => {
   let count_X = trio.match(/\X/gi);
 
   if (count_O !== null && count_O.length > 2) {
-    showWinner('Game over player O wins');
-    return;
+    showMessage('Game over player O wins');
+    return true;
   }
 
   if (count_X !== null && count_X.length > 2) {
-    showWinner('Game over player X wins');
-    return;
+    showMessage('Game over player X wins');
+    return true;
   }
 }
 
 let checkBoard = () => {
-  checkBoardHorizontal();
-  checkBoardVertical();
-  checkMainMajorDiagonal();
-  checkMainMinorDiagonal();
+  if (checkBoardHorizontal()
+    || checkBoardVertical()
+    || checkMainMajorDiagonal()
+    || checkMainMinorDiagonal()) {
+    gameIsOver = true;
+  }
+  if (turns > 9) {
+    gameIsOver = true;
+    showMessage('Draw');
+  }
 }
 
-let showWinner = (text) => {
+let showMessage = (text) => {
   let el = document.querySelector('#result');
   el.innerHTML = text;
 }
