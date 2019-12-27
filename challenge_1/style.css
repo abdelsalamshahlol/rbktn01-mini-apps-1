@@ -1,3 +1,8 @@
+body{
+  font-family: monospace;
+  color: dodgerblue;
+}
+
 .conatiner {
   width: 100%;
 }
@@ -16,9 +21,7 @@
 div .field {
   height: 100px;
   min-width: 50%;
-  /* min-height: 15em; */
   text-align: center;
-  /* padding: 16%; */
 }
 
 .field > span{
@@ -44,13 +47,15 @@ div .field {
 }
 
 .btn-success {
-   background: orangered;
+   background: #0073aa;
    color: white;
 }
 
 #result{
   margin: 0;
+  color: red;
   font-size: 20px;
+  text-transform: uppercase;
 }
 
 header{
@@ -58,4 +63,11 @@ header{
   font-size: 50px;
   font-family: monospace;
   border-bottom: 1px dashed;
+}
+
+#games{
+  margin: 0;
+  color: #4CAF50;
+  font-size: 20px;
+  text-transform: uppercase;
 }
