@@ -1,0 +1,15 @@
+.row {
+  display: flex;
+  width: 100%;
+  flex: 1 1 100%;
+}
+
+.col {
+  border: 1px solid;
+  width: 50%;
+}
+
+div .field {
+  height: 100px;
+  min-width: 50%;
+}
