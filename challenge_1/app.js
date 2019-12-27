@@ -7,6 +7,11 @@ let board = [
 ];
 
 let playMove = (e) => {
+  // Prevent click on the child element
+  if (e.target.localName !== 'div') {
+    return;
+  }
+
   let position = e.target.dataset;
   if (!validateMove(position)) {
     move = move === 'X' ? 'O' : 'X';
