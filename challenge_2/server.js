@@ -15,8 +15,14 @@ app.get('/', (req, res) => {
 
 app.post('/parse', form.none(), (req, res) => {
   let content = req.body.content;
-  console.log(req.body)
-  res.json(content);
+  if (content) {
+    // convert the object to CSV string
+    let x = JSON.parse(content);
+    res.json(x);
+  } else {
+    res.sendStatus(422);
+  }
+
 });
 
 app.listen(port, () => console.log(`App running on port ${port}.`));
