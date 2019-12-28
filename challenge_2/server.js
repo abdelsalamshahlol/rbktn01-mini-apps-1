@@ -10,12 +10,41 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static('client'));
 
-app.get('/', (req, res) => {
+var resultPage = result => (`
+<!DOCTYPE html>
+<html lang="en">
 
-  // res.send('home page');
-});
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>CSV Report Generator</title>
+</head>
+<body>
+  <section>
+    <div class="container">
+      <div class="row">
+        <h1>JSON - CSV Parser</h1>
+        <div class="col">
+        <pre>
+        ${result}
+        </pre>
+          <form action="/parse" method="POST">
+            <label>JSON</label>
+            <textarea name="content" cols="30" rows="10"></textarea>
+            <button>Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</body>
+<script src="app.js"></script>
+</html>
+`);
 
-var columnsCSV = function (obj) {
+
+var columnsCSV = (obj) => {
   let columns = '';
   let tmp = Object.keys(obj);
 
@@ -32,7 +61,7 @@ var columnsCSV = function (obj) {
   return columns;
 }
 
-var flatten = function (obj) {
+var flatten = (obj) => {
   let res = arguments[1] || '';
   let data = Object.values(obj);
   for (let i = 0; i < data.length; i++) {
@@ -63,7 +92,7 @@ app.post('/parse', form.single('content'), (req, res) => {
       res.status(422).send(e);
       return;
     }
-    res.send(result);
+    res.send(resultPage(result));
   } else {
     res.sendStatus(422);
   }
