@@ -26,9 +26,7 @@ var resultPage = result => (`
       <div class="row">
         <h1>JSON - CSV Parser</h1>
         <div class="col">
-        <pre>
-        ${result}
-        </pre>
+        <textarea>${result}</textarea>
           <form action="/parse" method="POST">
             <label>JSON</label>
             <textarea name="content" cols="30" rows="10"></textarea>
@@ -44,7 +42,7 @@ var resultPage = result => (`
 `);
 
 
-var columnsCSV = (obj) => {
+var columnsCSV = function (obj) {
   let columns = '';
   let tmp = Object.keys(obj);
 
@@ -61,7 +59,7 @@ var columnsCSV = (obj) => {
   return columns;
 }
 
-var flatten = (obj) => {
+var flatten = function (obj) {
   let res = arguments[1] || '';
   let data = Object.values(obj);
   for (let i = 0; i < data.length; i++) {
@@ -86,13 +84,15 @@ app.post('/parse', form.single('content'), (req, res) => {
     let result = '';
     try {
       // Validate input to check if its JSON
-      let object = JSON.parse(content);
-      result = columnsCSV(object) + flatten(object);
+      let contentParsed = JSON.parse(content);
+      result = columnsCSV(contentParsed) + flatten(contentParsed);
     } catch (e) {
       res.status(422).send(e);
       return;
     }
-    res.send(resultPage(result));
+    console.log({ result })
+    let html = resultPage(result)
+    res.send(html);
   } else {
     res.sendStatus(422);
   }
