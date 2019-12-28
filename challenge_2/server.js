@@ -8,9 +8,11 @@ const port = process.env.PORT || 3000;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(express.static('client'));
 
 app.get('/', (req, res) => {
-  res.send('home page');
+
+  // res.send('home page');
 });
 
 app.post('/parse', form.none(), (req, res) => {
