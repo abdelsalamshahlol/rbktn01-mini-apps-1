@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const multer = require('multer');
 
-const form = new multer();
+const form = new multer({ dest: 'uploads/' });
 const app = express();
 const port = process.env.PORT || 3000;
 
@@ -78,7 +78,8 @@ var flatten = function (obj) {
 }
 
 app.post('/parse', form.single('content'), (req, res) => {
-  let content = req.body.content;
+  let content = req.file;
+  console.log({ ds: req.body, content })
   if (content) {
     // convert the object to CSV string
     let result = '';
