@@ -1,9 +1,9 @@
 $(function () {
   $('body').on('submit', '#mainForm', function (e) {
-    const src = $(this);
-    const formData = new FormData(this)
-    // console.log(formData, src, this)
     e.preventDefault();
+    const src = $(this);
+    const formData = new FormData(this);
+
     $.ajax({
       data: formData,
       url: src.attr('action'),
@@ -13,6 +13,7 @@ $(function () {
       contentType: false,
       success: function (data) {
         console.log(data);
+        $('#result').html(data)
       },
       fail: function (e) {
         console.log(e);
