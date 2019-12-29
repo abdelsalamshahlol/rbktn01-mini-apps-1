@@ -43,66 +43,60 @@ var resultPage = result => (`
 `);
 
 
-var columnsCSV = function (obj) {
-  let columns = '';
-  let tmp = Object.keys(obj);
-
-  for (let i = 0; i < tmp.length; i++) {
-    if (tmp[i] !== 'children') {
-      columns += tmp[i];
-      if (i < tmp.length - 2) {
-        columns += ',';
-      } else {
-        columns += '\n';
-      }
-    }
-  }
-  return columns;
+var columnsCSV = function (json) {
+  delete json['children'];
+  return Object.keys(json).join(',');
 }
 
-var flatten = function (obj) {
-  let res = arguments[1] || '';
-  let data = Object.values(obj);
-  for (let i = 0; i < data.length; i++) {
-    if (typeof data[i] === 'object') {
-      res = flatten(data[i], res);
+var makeCSV = function (json) {
+  let result = arguments[1] || '';
+  let sep = "";
+  let lineBreak = '\n';
+  for (let key in json) {
+    if (key !== 'children') {
+      result += sep + json[key];
+      sep = ",";
     } else {
-      res += data[i];
-      if (i !== data.length - 2) {
-        res += ',';
-      } else {
-        res += '\n';
+      for (let k in json[key]) {
+        result += lineBreak + makeCSV(json[key][k]);
       }
+      return result;
     }
   }
-  return res;
+}
+
+var isValidJSON = function (json) {
+  try {
+    return JSON.parse(json);
+  } catch (e) {
+    return false;
+  }
 }
 
 app.post('/parse', form.single('content'), (req, res) => {
-  let content = fs.readFile(req.file.path, 'utf8', (err, text) => {
+  // read data from the uploaded file
+  fs.readFile(req.file.path, 'utf8', (err, text) => {
     if (text) {
-      // convert the object to CSV string
+      // check if the JSON is valid
+      let parsedContent = isValidJSON(text);
       let result = '';
-      try {
-        // Validate input to check if its JSON
-        let contentParsed = JSON.parse(text);
-        result = columnsCSV(contentParsed) + flatten(contentParsed);
-      } catch (e) {
-        res.status(422).send(e);
+
+      if (parsedContent) {
+        // convert the object to CSV string
+        let values = makeCSV(parsedContent);
+        result = columnsCSV(parsedContent) + "\n" + values;
+      } else {
+        res.status(422).send('Invalid JSON');
         return;
       }
-      console.log({ result })
-      let html = resultPage(result)
+      let html = resultPage(result);
       res.send(html);
       return;
     } else {
-      res.sendStatus(422);
+      res.status(422).send('Invalid file provided');
       return;
     }
-    return;
   });
-  console.log({ content })
-  res.end('sdsdsss')
 });
 
 app.listen(port, () => console.log(`App running on port ${port}.`));
