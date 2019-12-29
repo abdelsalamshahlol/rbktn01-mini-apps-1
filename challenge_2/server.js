@@ -60,9 +60,9 @@ var makeCSV = function (json) {
       for (let k in json[key]) {
         result += lineBreak + makeCSV(json[key][k]);
       }
-      return result;
     }
   }
+  return result;
 }
 
 var isValidJSON = function (json) {
