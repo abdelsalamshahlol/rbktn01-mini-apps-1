@@ -28,9 +28,9 @@ var resultPage = result => (`
         <h1>JSON - CSV Parser</h1>
         <div class="col">
         <textarea>${result}</textarea>
-          <form action="/parse" method="POST">
+          <form action="/parse" method="POST" enctype="multipart/form-data">
             <label>JSON</label>
-            <textarea name="content" cols="30" rows="10"></textarea>
+            <input type="file" name="content"/>
             <button>Submit</button>
           </form>
         </div>
