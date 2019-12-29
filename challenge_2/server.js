@@ -11,11 +11,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static('client'));
 
+// Generate the columns string from JSON file
 var columnsCSV = function (json) {
   delete json['children'];
   return Object.keys(json).join(',');
 }
 
+// Generate the comma separated string containing the content of JSON file
 var makeCSV = function (json) {
   let result = arguments[1] || '';
   let sep = "";
@@ -33,6 +35,7 @@ var makeCSV = function (json) {
   return result;
 }
 
+// Validate the JSON provided by user
 var isValidJSON = function (json) {
   try {
     return JSON.parse(json);
@@ -41,6 +44,7 @@ var isValidJSON = function (json) {
   }
 }
 
+// Handle the request on the POST route with user file
 app.post('/parse', form.single('content'), (req, res) => {
   // read data from the uploaded file
   fs.readFile(req.file.path, 'utf8', (err, text) => {

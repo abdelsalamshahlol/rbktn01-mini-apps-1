@@ -14,7 +14,6 @@ $(function () {
       success: function (data) {
         $('#result').html(data);
         let file = new Blob([data], { type: 'text/csv' });
-        console.log(file);
         $('#downloader').fadeIn()
           .attr('href', URL.createObjectURL(file))
           .attr('download', 'download.csv');
