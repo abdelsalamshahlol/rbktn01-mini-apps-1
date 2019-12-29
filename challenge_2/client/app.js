@@ -12,11 +12,15 @@ $(function () {
       processData: false,
       contentType: false,
       success: function (data) {
-        console.log(data);
-        $('#result').html(data)
+        $('#result').html(data);
+        let file = new Blob([data], { type: 'text/csv' });
+        console.log(file);
+        $('#downloader').fadeIn()
+          .attr('href', URL.createObjectURL(file))
+          .attr('download', 'download.csv');
       },
       fail: function (e) {
-        console.log(e);
+        console.error(e);
       }
     });
   });
