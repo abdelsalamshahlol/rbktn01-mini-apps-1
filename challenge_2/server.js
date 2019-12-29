@@ -11,38 +11,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static('client'));
 
-var resultPage = result => (`
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>CSV Report Generator</title>
-</head>
-<body>
-  <section>
-    <div class="container">
-      <div class="row">
-        <h1>JSON - CSV Parser</h1>
-        <div class="col">
-        <textarea>${result}</textarea>
-          <form action="/parse" method="POST" enctype="multipart/form-data">
-            <label>JSON</label>
-            <input type="file" name="content"/>
-            <button>Submit</button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </section>
-</body>
-<script src="app.js"></script>
-</html>
-`);
-
-
 var columnsCSV = function (json) {
   delete json['children'];
   return Object.keys(json).join(',');
@@ -80,20 +48,18 @@ app.post('/parse', form.single('content'), (req, res) => {
       // check if the JSON is valid
       let parsedContent = isValidJSON(text);
       let result = '';
-
+      // convert the object to CSV string
       if (parsedContent) {
-        // convert the object to CSV string
         let values = makeCSV(parsedContent);
         result = columnsCSV(parsedContent) + "\n" + values;
       } else {
-        res.status(422).send('Invalid JSON');
+        res.status(422).json('Invalid JSON');
         return;
       }
-      let html = resultPage(result);
-      res.send(html);
+      res.json(result);
       return;
     } else {
-      res.status(422).send('Invalid file provided');
+      res.status(422).json('Invalid file provided');
       return;
     }
   });
