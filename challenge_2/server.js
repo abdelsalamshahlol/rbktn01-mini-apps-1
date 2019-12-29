@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const multer = require('multer');
+const fs = require('fs');
 
 const form = new multer({ dest: 'uploads/' });
 const app = express();
@@ -78,25 +79,30 @@ var flatten = function (obj) {
 }
 
 app.post('/parse', form.single('content'), (req, res) => {
-  let content = req.file;
-  console.log({ ds: req.body, content })
-  if (content) {
-    // convert the object to CSV string
-    let result = '';
-    try {
-      // Validate input to check if its JSON
-      let contentParsed = JSON.parse(content);
-      result = columnsCSV(contentParsed) + flatten(contentParsed);
-    } catch (e) {
-      res.status(422).send(e);
+  let content = fs.readFile(req.file.path, 'utf8', (err, text) => {
+    if (text) {
+      // convert the object to CSV string
+      let result = '';
+      try {
+        // Validate input to check if its JSON
+        let contentParsed = JSON.parse(text);
+        result = columnsCSV(contentParsed) + flatten(contentParsed);
+      } catch (e) {
+        res.status(422).send(e);
+        return;
+      }
+      console.log({ result })
+      let html = resultPage(result)
+      res.send(html);
+      return;
+    } else {
+      res.sendStatus(422);
       return;
     }
-    console.log({ result })
-    let html = resultPage(result)
-    res.send(html);
-  } else {
-    res.sendStatus(422);
-  }
+    return;
+  });
+  console.log({ content })
+  res.end('sdsdsss')
 });
 
 app.listen(port, () => console.log(`App running on port ${port}.`));
