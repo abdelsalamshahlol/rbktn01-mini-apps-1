@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/xyzStore', { useNewUrlParser: true }).once('open', () => {
-  console.log('connected to db')
-})
 
-const orderSchema = new Mongoose.Schema({
+mongoose.connect('mongodb://localhost/xyzStore', { useNewUrlParser: true }, () => {
+  console.log('connected to db')
+});
+
+const orderSchema = new mongoose.Schema({
   name: { type: String, required: true },
   email: { type: String, required: true },
   password: { type: String, required: true },
@@ -20,5 +21,18 @@ const orderSchema = new Mongoose.Schema({
   created_at: { type: Date, default: Date.now }
 });
 
+var Order = mongoose.model('Order', orderSchema);
 
-// module.exports
+const saveOrder = (order, callback) => {
+  let _order = new Order(order);
+  console.log('saved order ', order);
+
+  _order.save((err, result) => {
+    if (err) {
+      callback(err, null);
+    }
+    callback(null, result);
+  });
+}
+
+module.exports.saveOrder = saveOrder;

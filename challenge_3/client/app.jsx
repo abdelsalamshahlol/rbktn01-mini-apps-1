@@ -271,7 +271,7 @@ class Summary extends React.Component {
       dataObj[k] = v;
     })
 
-    axios.post('/save', { userData: dataObj })
+    axios.post('/save', dataObj)
       .then(({ data }) => {
         console.log({ data })
       })

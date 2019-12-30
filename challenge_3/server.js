@@ -1,6 +1,7 @@
 // express app
 const express = require('express');
 const bodyParser = require('body-parser');
+const db = require('./db');
 
 const app = new express();
 const port = process.env.PORT || 3000;
@@ -14,7 +15,15 @@ app.listen(port, () => {
 });
 
 app.post('/save', (req, res) => {
-  let userData = req.body.userData;
-  console.log({ userData })
-  res.json(req.body);
+  let userData = req.body;
+  console.log({ userData });
+  db.saveOrder(userData, (err, result) => {
+    if (err) {
+      res.status(422).send(err);
+      return;
+    }
+    res.json(result);
+    return;
+  });
+  // res.json(req.body);
 });
