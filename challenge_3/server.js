@@ -8,7 +8,3 @@ app.use(express.static('public'));
 app.listen(port, () => {
   console.log('server running on port ' + port);
 });
-
-app.get('/', (req, res) => {
-  // res.end('end')
-});
