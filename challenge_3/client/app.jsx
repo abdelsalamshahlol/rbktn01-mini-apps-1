@@ -214,10 +214,10 @@ class Summary extends React.Component {
             </tr>
             <tr>
               <th>Password:</th>
-              <td>{this.props.orderData.get('password')}</td>
+              <td>{this.props.orderData.get('password').replace(/\w/g, '#')}</td>
             </tr>
             <tr>
-              <th>Shippin Address: 1+2</th>
+              <th>Shippin Address:</th>
               <td>{this.props.orderData.get('address1') + ', ' + this.props.orderData.get('address2')}</td>
             </tr>
             <tr>
@@ -256,7 +256,7 @@ class Summary extends React.Component {
         </table>
         <div className="row">
           <div className="col">
-            <div className="mt-5"><button className="btn btn-primary">Purchase </button></div>
+            <div className="my-5"><button className="btn btn-primary">Purchase </button></div>
           </div>
         </div>
       </div>
