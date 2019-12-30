@@ -113,13 +113,13 @@ class F2 extends React.Component {
           <div className="col-6">
             <div className="form-group">
               <label>Address line 1</label>
-              <input type="text" className="form-control" name="addres1" />
+              <input type="text" className="form-control" name="address1" />
             </div>
           </div>
           <div className="col-6">
             <div className="form-group">
               <label>Address line 2</label>
-              <input type="text" className="form-control" name="addres1" />
+              <input type="text" className="form-control" name="address2" />
             </div>
           </div>
           <div className="col">
@@ -203,18 +203,56 @@ class Summary extends React.Component {
         {/* Summary with all details and purchase button */}
         <h1>Order Summary</h1>
         <table className="table table-hover">
-          <tr>
-            <th>Name</th>
-            <td>{this.props.orderData.get('name')}</td>
-          </tr>
-          <tr>
-            <th>Email:</th>
-            <td>555 77 854</td>
-          </tr>
-          <tr>
-            <th>Telephone:</th>
-            <td>555 77 855</td>
-          </tr>
+          <tbody>
+            <tr>
+              <th>Name</th>
+              <td>{this.props.orderData.get('name')}</td>
+            </tr>
+            <tr>
+              <th>Email:</th>
+              <td>{this.props.orderData.get('email')}</td>
+            </tr>
+            <tr>
+              <th>Password:</th>
+              <td>{this.props.orderData.get('password')}</td>
+            </tr>
+            <tr>
+              <th>Shippin Address: 1+2</th>
+              <td>{this.props.orderData.get('address1') + ', ' + this.props.orderData.get('address2')}</td>
+            </tr>
+            <tr>
+              <th>Phone Number</th>
+              <td>{this.props.orderData.get('phone')}</td>
+            </tr>
+            <tr>
+              <th>City</th>
+              <td>{this.props.orderData.get('city')}</td>
+            </tr>
+            <tr>
+              <th>State</th>
+              <td>{this.props.orderData.get('state')}</td>
+            </tr>
+            <tr>
+              <th>Zip Code</th>
+              <td>{this.props.orderData.get('zip')}</td>
+            </tr>
+            <tr>
+              <th>Credit Card Number</th>
+              <td>{this.props.orderData.get('cc_number')}</td>
+            </tr>
+            <tr>
+              <th>Expiry Date</th>
+              <td>{this.props.orderData.get('expiry')}</td>
+            </tr>
+            <tr>
+              <th>CVV</th>
+              <td>{this.props.orderData.get('cvv')}</td>
+            </tr>
+            <tr>
+              <th>Billing Zip Code</th>
+              <td>{this.props.orderData.get('billing_zip')}</td>
+            </tr>
+          </tbody>
         </table>
         <div className="row">
           <div className="col">
