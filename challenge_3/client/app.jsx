@@ -28,7 +28,7 @@ class App extends React.Component {
 
       this.setState({
         data: formData
-      });
+      })
     }
   }
 
@@ -274,10 +274,10 @@ class Summary extends React.Component {
 
     axios.post('/save', dataObj)
       .then(({ data }) => {
-        console.log({ data })
+        alert('Order saved');
       })
       .catch(e => {
-        console.error(e)
+        alert('Error saving order');
       })
 
   }
