@@ -37,14 +37,12 @@ class App extends React.Component {
     return (
       <div>
         <h1 className="text-center mb-4">XYZ E-Store</h1>
-        <pre>pre  {this.state.prev}</pre>
-        <pre>next {this.state.next}</pre>
         <div className="container">
           <div className="row">
             <div className="col">
-              {this.state.f1 && (<F1 />)}
-              {this.state.f2 && (<F2 />)}
-              {this.state.f3 && (<F3 />)}
+              <F1 isVisible={this.state.f1} />
+              <F2 isVisible={this.state.f2} />
+              <F3 isVisible={this.state.f3} />
             </div>
           </div>
           <Nav stepForward={this.stepForward.bind(this)} stepBackwards={this.stepBackWards.bind(this)} next={this.state.next} prev={this.state.prev} />
@@ -73,9 +71,9 @@ class Nav extends React.Component {
 }
 
 class F1 extends React.Component {
-  render() {
+  render(props) {
     return (
-      <div>
+      <div className={this.props.isVisible ? 'd-block' : 'd-none'}>
         <form action="/">
           <h3>Create Account</h3>
           <div className="form-group">
@@ -93,9 +91,9 @@ class F1 extends React.Component {
 }
 
 class F2 extends React.Component {
-  render() {
+  render(props) {
     return (
-      <div>
+      <div className={this.props.isVisible ? 'd-block' : 'd-none'}>
         <form action="/">
           <h3>Shipping Information</h3>
           <div className="row">
@@ -145,9 +143,9 @@ class F2 extends React.Component {
 }
 
 class F3 extends React.Component {
-  render() {
+  render(props) {
     return (
-      <div>
+      <div className={this.props.isVisible ? 'd-block' : 'd-none'}>
         <form action="/">
           <h3>Payment Information</h3>
           <div className="row">
@@ -184,5 +182,14 @@ class F3 extends React.Component {
   }
 }
 
-
+class Summary extends React.Component {
+  render() {
+    return (
+      <div>
+        {/* Summary with all details and purchase button */}
+        <button className="btn btn-primary">Purchase </button>
+      </div>
+    )
+  }
+}
 ReactDOM.render(<App />, document.getElementById('app'));
