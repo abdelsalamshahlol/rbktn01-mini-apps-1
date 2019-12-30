@@ -25,7 +25,6 @@ var Order = mongoose.model('Order', orderSchema);
 
 const saveOrder = (order, callback) => {
   let _order = new Order(order);
-  console.log('saved order ', order);
 
   _order.save((err, result) => {
     if (err) {

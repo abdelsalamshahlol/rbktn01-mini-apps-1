@@ -22,12 +22,13 @@ class App extends React.Component {
         prev: this.state.prev + 1
       });
     }
+
     if (next === 4) {
       let formData = new FormData(document.getElementById('order'));
-      console.log({ formData })
+
       this.setState({
         data: formData
-      })
+      });
     }
   }
 

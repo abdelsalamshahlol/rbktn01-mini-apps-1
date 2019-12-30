@@ -16,7 +16,7 @@ app.listen(port, () => {
 
 app.post('/save', (req, res) => {
   let userData = req.body;
-  console.log({ userData });
+
   db.saveOrder(userData, (err, result) => {
     if (err) {
       res.status(422).send(err);
@@ -25,5 +25,4 @@ app.post('/save', (req, res) => {
     res.json(result);
     return;
   });
-  // res.json(req.body);
 });
