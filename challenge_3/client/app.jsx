@@ -6,28 +6,39 @@ class App extends React.Component {
       f1: true,
       f2: false,
       f3: false,
-      current: 2,
+      next: 2,
       prev: 1,
     }
-    // this.stepForward = this.go.bind(this);
   }
 
-  go(prev, next) {
-    if (next < 4) {
+  stepForward(prev, next) {
+    if (next <= 3) {
       this.setState({
         ['f' + next]: true,
         ['f' + prev]: false,
-        current: this.state.current + 1,
+        next: this.state.next + 1,
         prev: this.state.prev + 1
       });
     }
-    console.log('called')
+  }
+
+  stepBackWards(prev, next) {
+    if (prev > 0) {
+      this.setState({
+        ['f' + next]: false,
+        ['f' + prev]: true,
+        next: this.state.next - 1,
+        prev: this.state.prev - 1
+      });
+    }
   }
 
   render() {
     return (
       <div>
         <h1 className="text-center mb-4">XYZ E-Store</h1>
+        <pre>pre  {this.state.prev}</pre>
+        <pre>next {this.state.next}</pre>
         <div className="container">
           <div className="row">
             <div className="col">
@@ -36,7 +47,7 @@ class App extends React.Component {
               {this.state.f3 && (<F3 />)}
             </div>
           </div>
-          <Nav step={this.go.bind(this)} next={this.state.current} prev={this.state.prev} />
+          <Nav stepForward={this.stepForward.bind(this)} stepBackwards={this.stepBackWards.bind(this)} next={this.state.next} prev={this.state.prev} />
         </div>
       </div>);
   }
@@ -51,10 +62,10 @@ class Nav extends React.Component {
     return (
       <div className="row">
         <div className="col">
-          <button className="btn btn-success">Back</button>
+          <button className="btn btn-success" onClick={() => this.props.stepBackwards(this.props.prev, this.props.next)}>Back</button>
         </div>
         <div className="col text-right">
-          <button className="btn btn-primary" onClick={() => this.props.step(this.props.prev, this.props.next)}>Next</button>
+          <button className="btn btn-primary" onClick={() => this.props.stepForward(this.props.prev, this.props.next)}>Next</button>
         </div>
       </div>
     )
