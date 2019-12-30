@@ -6,19 +6,28 @@ class App extends React.Component {
       f1: true,
       f2: false,
       f3: false,
+      f4: false,
       next: 2,
       prev: 1,
+      data: null,
     }
   }
 
   stepForward(prev, next) {
-    if (next <= 3) {
+    if (next <= 4) {
       this.setState({
         ['f' + next]: true,
         ['f' + prev]: false,
         next: this.state.next + 1,
         prev: this.state.prev + 1
       });
+    }
+    if (next === 4) {
+      let formData = new FormData(document.getElementById('order'));
+      console.log({ formData })
+      this.setState({
+        data: formData
+      })
     }
   }
 
@@ -40,9 +49,12 @@ class App extends React.Component {
         <div className="container">
           <div className="row">
             <div className="col">
-              <F1 isVisible={this.state.f1} />
-              <F2 isVisible={this.state.f2} />
-              <F3 isVisible={this.state.f3} />
+              <form action="#" id="order">
+                <F1 isVisible={this.state.f1} />
+                <F2 isVisible={this.state.f2} />
+                <F3 isVisible={this.state.f3} />
+                {this.state.f4 && (<Summary orderData={this.state.data} />)}
+              </form>
             </div>
           </div>
           <Nav stepForward={this.stepForward.bind(this)} stepBackwards={this.stepBackWards.bind(this)} next={this.state.next} prev={this.state.prev} />
@@ -74,17 +86,19 @@ class F1 extends React.Component {
   render(props) {
     return (
       <div className={this.props.isVisible ? 'd-block' : 'd-none'}>
-        <form action="/">
-          <h3>Create Account</h3>
-          <div className="form-group">
-            <label>Name</label>
-            <input type="text" className="form-control" name="name" />
-          </div>
-          <div className="form-group">
-            <label>Password</label>
-            <input type="password" className="form-control" name="password" />
-          </div>
-        </form>
+        <h3>Create Account</h3>
+        <div className="form-group">
+          <label>Name</label>
+          <input type="text" className="form-control" name="name" />
+        </div>
+        <div className="form-group">
+          <label>Email</label>
+          <input type="email" className="form-control" name="email" />
+        </div>
+        <div className="form-group">
+          <label>Password</label>
+          <input type="password" className="form-control" name="password" />
+        </div>
       </div>
     )
   }
@@ -94,49 +108,47 @@ class F2 extends React.Component {
   render(props) {
     return (
       <div className={this.props.isVisible ? 'd-block' : 'd-none'}>
-        <form action="/">
-          <h3>Shipping Information</h3>
-          <div className="row">
-            <div className="col-6">
-              <div className="form-group">
-                <label>Address line 1</label>
-                <input type="text" className="form-control" name="addres1" />
-              </div>
-            </div>
-            <div className="col-6">
-              <div className="form-group">
-                <label>Address line 2</label>
-                <input type="text" className="form-control" name="addres1" />
-              </div>
-            </div>
-            <div className="col">
-              <div className="form-group">
-                <label>Phone Number</label>
-                <input type="text" className="form-control" name="phone" />
-              </div>
+        <h3>Shipping Information</h3>
+        <div className="row">
+          <div className="col-6">
+            <div className="form-group">
+              <label>Address line 1</label>
+              <input type="text" className="form-control" name="addres1" />
             </div>
           </div>
-          <div className="row">
-            <div className="col">
-              <div className="form-group">
-                <label>City</label>
-                <input type="text" className="form-control" name="city" />
-              </div>
-            </div>
-            <div className="col">
-              <div className="form-group">
-                <label>State</label>
-                <input type="text" className="form-control" name="state" />
-              </div>
-            </div>
-            <div className="col">
-              <div className="form-group">
-                <label>Zip Code</label>
-                <input type="text" className="form-control" name="zip" />
-              </div>
+          <div className="col-6">
+            <div className="form-group">
+              <label>Address line 2</label>
+              <input type="text" className="form-control" name="addres1" />
             </div>
           </div>
-        </form>
+          <div className="col">
+            <div className="form-group">
+              <label>Phone Number</label>
+              <input type="text" className="form-control" name="phone" />
+            </div>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col">
+            <div className="form-group">
+              <label>City</label>
+              <input type="text" className="form-control" name="city" />
+            </div>
+          </div>
+          <div className="col">
+            <div className="form-group">
+              <label>State</label>
+              <input type="text" className="form-control" name="state" />
+            </div>
+          </div>
+          <div className="col">
+            <div className="form-group">
+              <label>Zip Code</label>
+              <input type="text" className="form-control" name="zip" />
+            </div>
+          </div>
+        </div>
       </div>
     )
   }
@@ -146,48 +158,69 @@ class F3 extends React.Component {
   render(props) {
     return (
       <div className={this.props.isVisible ? 'd-block' : 'd-none'}>
-        <form action="/">
-          <h3>Payment Information</h3>
-          <div className="row">
-            <div className="col">
-              <div className="form-group">
-                <label>Credit Card Number</label>
-                <input type="text" className="form-control" name="cc_number" />
-              </div>
-            </div>
-            <div className="col">
-              <div className="form-group">
-                <label>Expiry Date</label>
-                <input type="date" className="form-control" name="expiry" />
-              </div>
+        <h3>Payment Information</h3>
+        <div className="row">
+          <div className="col">
+            <div className="form-group">
+              <label>Credit Card Number</label>
+              <input type="text" className="form-control" name="cc_number" />
             </div>
           </div>
-          <div className="row">
-            <div className="col-3">
-              <div className="form-group">
-                <label>CVV</label>
-                <input type="text" className="form-control" name="cvv" />
-              </div>
-            </div>
-            <div className="col">
-              <div className="form-group">
-                <label>Billing Zip Code</label>
-                <input type="text" className="form-control" name="billing_zip" />
-              </div>
+          <div className="col">
+            <div className="form-group">
+              <label>Expiry Date</label>
+              <input type="date" className="form-control" name="expiry" />
             </div>
           </div>
-        </form>
+        </div>
+        <div className="row">
+          <div className="col-3">
+            <div className="form-group">
+              <label>CVV</label>
+              <input type="text" className="form-control" name="cvv" />
+            </div>
+          </div>
+          <div className="col">
+            <div className="form-group">
+              <label>Billing Zip Code</label>
+              <input type="text" className="form-control" name="billing_zip" />
+            </div>
+          </div>
+        </div>
       </div>
     )
   }
 }
 
 class Summary extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
   render() {
     return (
       <div>
         {/* Summary with all details and purchase button */}
-        <button className="btn btn-primary">Purchase </button>
+        <h1>Order Summary</h1>
+        <table className="table table-hover">
+          <tr>
+            <th>Name</th>
+            <td>{this.props.orderData.get('name')}</td>
+          </tr>
+          <tr>
+            <th>Email:</th>
+            <td>555 77 854</td>
+          </tr>
+          <tr>
+            <th>Telephone:</th>
+            <td>555 77 855</td>
+          </tr>
+        </table>
+        <div className="row">
+          <div className="col">
+            <div className="mt-5"><button className="btn btn-primary">Purchase </button></div>
+          </div>
+        </div>
       </div>
     )
   }
