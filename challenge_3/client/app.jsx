@@ -49,7 +49,7 @@ class App extends React.Component {
         <div className="container">
           <div className="row">
             <div className="col">
-              <form action="#" id="order">
+              <form action="#" id="order" method="POST">
                 <F1 isVisible={this.state.f1} />
                 <F2 isVisible={this.state.f2} />
                 <F3 isVisible={this.state.f3} />
@@ -256,11 +256,29 @@ class Summary extends React.Component {
         </table>
         <div className="row">
           <div className="col">
-            <div className="my-5"><button className="btn btn-primary">Purchase </button></div>
+            <div className="my-5"><button className="btn btn-primary" onClick={() => this.checkOut()}>Purchase </button></div>
           </div>
         </div>
       </div>
     )
+  }
+
+  checkOut() {
+    event.preventDefault();
+    //send data to the backend and show the result of the transaction
+    let dataObj = {};
+    this.props.orderData.forEach((v, k) => {
+      dataObj[k] = v;
+    })
+
+    axios.post('/save', { userData: dataObj })
+      .then(({ data }) => {
+        console.log({ data })
+      })
+      .catch(e => {
+        console.error(e)
+      })
+
   }
 }
 ReactDOM.render(<App />, document.getElementById('app'));
