@@ -1,5 +1,13 @@
 // all components here no webpack
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      f1: true,
+      f2: false,
+      f3: false
+    }
+  }
   render() {
     return (
       <div>
@@ -17,20 +25,35 @@ class App extends React.Component {
   }
 }
 
+class Nav extends React.Component {
+  render() {
+    return (
+      <div className="row">
+        <div className="col">
+          <button className="btn btn-primary">Next</button>
+        </div>
+      </div>
+    )
+  }
+}
+
 class F1 extends React.Component {
   render() {
     return (
-      <form action="/">
-        <h3>Create Account</h3>
-        <div className="form-group">
-          <label>Name</label>
-          <input type="text" className="form-control" name="name" />
-        </div>
-        <div className="form-group">
-          <label>Password</label>
-          <input type="password" className="form-control" name="password" />
-        </div>
-      </form>
+      <div>
+        <form action="/">
+          <h3>Create Account</h3>
+          <div className="form-group">
+            <label>Name</label>
+            <input type="text" className="form-control" name="name" />
+          </div>
+          <div className="form-group">
+            <label>Password</label>
+            <input type="password" className="form-control" name="password" />
+          </div>
+        </form>
+        <Nav />
+      </div>
     )
   }
 }
