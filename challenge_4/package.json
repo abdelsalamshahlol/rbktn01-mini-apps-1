@@ -1,0 +1,30 @@
+{
+  "name": "challenge_4",
+  "version": "1.0.0",
+  "description": "Challange 4 on mini apps sprint - connect 4 game ",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abdelsalamshahlol/rbktn01-mini-apps-1.git"
+  },
+  "keywords": [
+    "Connect4",
+    "Game",
+    "Express",
+    "React"
+  ],
+  "author": "Abdelsalam Shahlol",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/abdelsalamshahlol/rbktn01-mini-apps-1/issues"
+  },
+  "homepage": "https://github.com/abdelsalamshahlol/rbktn01-mini-apps-1#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
