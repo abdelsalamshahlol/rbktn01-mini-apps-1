@@ -4,12 +4,16 @@ import ReactDom from 'react-dom';
 class Circle extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      color: 'white'
+    }
   }
 
   render() {
     return (
-      <div className="circle" onClick={() => this.props.handlePushColumn(this.props.x, this.props.y)}>
+      <div className="circle" onClick={() => this.props.handlePushColumn(this.props.row, this.props.column)}>
         {/* {this.props.x + " | " + this.props.y} */}
+        {this.state.color}
       </div>
     )
   }
