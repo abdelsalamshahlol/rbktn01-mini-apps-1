@@ -9,24 +9,47 @@ class App extends React.Component {
     super(props);
     this.state = {
       board:
+        // [
+        //   Array.from({ length: 7 }, () => <Circle />),
+        //   Array.from({ length: 7 }, () => <Circle />),
+        //   Array.from({ length: 7 }, () => <Circle />),
+        //   Array.from({ length: 7 }, () => <Circle />),
+        //   Array.from({ length: 7 }, () => <Circle />),
+        //   Array.from({ length: 7 }, () => <Circle />),
+        // ]
         [
-          [0, 0, 0, 0, 0, 0, 0]
-          [0, 0, 0, 0, 0, 0, 0]
-          [0, 0, 0, 0, 0, 0, 0]
-          [0, 0, 0, 0, 0, 0, 0]
-          [0, 0, 0, 0, 0, 0, 0]
-          [0, 0, 0, 0, 0, 0, 0]
+          [0, 0, 0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0, 0, 0],
         ]
     }
   }
 
   render() {
+    const boardView = [];
+    for (let i = 0; i < 6; i++) {
+      let row = [];
+      for (let j = 0; j < 7; j++) {
+        row.push(<div className="col">
+          <Circle />
+        </div>)
+      }
+      boardView.push(<div className="row">{row}</div>)
+    }
     return (
       <div className="container">
         <div className="row">
-          <div className="col">
-            <Circle />
-          </div>
+          {/* <div className="col"> */}
+          {/* <Circle /> */}
+          {/* <pre>
+              {this.state.board}
+            </pre> */}
+          {/* <Circle /> */}
+          {boardView}
+          {/* </div> */}
         </div>
       </div>
     )
