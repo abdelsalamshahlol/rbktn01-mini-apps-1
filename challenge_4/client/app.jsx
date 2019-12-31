@@ -1,10 +1,23 @@
 import React from 'react';
 import ReactDom from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.css';
+import './css/style.css';
+import Circle from './components/circle.jsx';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      board:
+        [
+          [0, 0, 0, 0, 0, 0, 0]
+          [0, 0, 0, 0, 0, 0, 0]
+          [0, 0, 0, 0, 0, 0, 0]
+          [0, 0, 0, 0, 0, 0, 0]
+          [0, 0, 0, 0, 0, 0, 0]
+          [0, 0, 0, 0, 0, 0, 0]
+        ]
+    }
   }
 
   render() {
@@ -12,7 +25,7 @@ class App extends React.Component {
       <div className="container">
         <div className="row">
           <div className="col">
-            whaterver here
+            <Circle />
           </div>
         </div>
       </div>
