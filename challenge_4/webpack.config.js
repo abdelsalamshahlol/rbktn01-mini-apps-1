@@ -7,10 +7,16 @@ module.exports = {
     rules: [{
       test: /\.(js|jsx)$/,
       exclude: '/node_modules/',
-      use: {
-        loader: 'babel-loader'
+      loader: 'babel-loader',
+      options: {
+        presets: ['@babel/env']
       }
-    }],
+    },
+    {
+      test: /\.css$/,
+      use: ["style-loader", "css-loader"]
+    }
+    ],
   },
   output: {
     filename: "app.js",
