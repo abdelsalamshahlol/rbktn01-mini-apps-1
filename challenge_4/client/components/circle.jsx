@@ -8,7 +8,9 @@ class Circle extends React.Component {
 
   render() {
     return (
-      <div className="circle"></div>
+      <div className="circle">
+        {/* {this.props.x + " | " + this.props.y} */}
+      </div>
     )
   }
 }

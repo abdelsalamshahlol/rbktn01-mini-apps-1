@@ -32,25 +32,31 @@ class App extends React.Component {
     const boardView = [];
     for (let i = 0; i < 6; i++) {
       let row = [];
+
       for (let j = 0; j < 7; j++) {
-        row.push(<div className="col">
-          <Circle />
-        </div>)
+        row.push(
+          <div className="col">
+            <Circle x={i} y={j} key={`row-${i} col-${j}`} />
+          </div>
+        );
       }
-      boardView.push(<div className="row">{row}</div>)
+
+      boardView.push(
+        <div className="row my-2" key={`row-${i}`}>{row}</div>
+      );
     }
     return (
-      <div className="container">
-        <div className="row">
-          {/* <div className="col"> */}
-          {/* <Circle /> */}
-          {/* <pre>
+      <div className="container board-container">
+        {/* <div className="row"> */}
+        {/* <div className="col"> */}
+        {/* <Circle /> */}
+        {/* <pre>
               {this.state.board}
             </pre> */}
-          {/* <Circle /> */}
-          {boardView}
-          {/* </div> */}
-        </div>
+        {/* <Circle /> */}
+        {boardView}
+        {/* </div> */}
+        {/* </div> */}
       </div>
     )
   }
