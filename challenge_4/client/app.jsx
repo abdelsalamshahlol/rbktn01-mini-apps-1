@@ -9,14 +9,6 @@ class App extends React.Component {
     super(props);
     this.state = {
       board:
-        // [
-        //   Array.from({ length: 7 }, () => <Circle />),
-        //   Array.from({ length: 7 }, () => <Circle />),
-        //   Array.from({ length: 7 }, () => <Circle />),
-        //   Array.from({ length: 7 }, () => <Circle />),
-        //   Array.from({ length: 7 }, () => <Circle />),
-        //   Array.from({ length: 7 }, () => <Circle />),
-        // ]
         [
           [0, 0, 0, 0, 0, 0, 0],
           [0, 0, 0, 0, 0, 0, 0],
@@ -28,35 +20,31 @@ class App extends React.Component {
     }
   }
 
+  pushToColumn(r, c) {
+    console.log(`Click at ${r} and ${c}`);
+  }
+
   render() {
+    let pushToColumn = this.pushToColumn.bind(this);
     const boardView = [];
+
     for (let i = 0; i < 6; i++) {
       let row = [];
-
       for (let j = 0; j < 7; j++) {
         row.push(
           <div className="col">
-            <Circle x={i} y={j} key={`row-${i} col-${j}`} />
+            <Circle x={i} y={j} key={`row-${i} col-${j}`} handlePushColumn={pushToColumn} />
           </div>
         );
       }
 
       boardView.push(
-        <div className="row my-2" key={`row-${i}`}>{row}</div>
+        <div className="row my-2" key={`row-${i}`}> {row}</div >
       );
     }
     return (
-      <div className="container board-container">
-        {/* <div className="row"> */}
-        {/* <div className="col"> */}
-        {/* <Circle /> */}
-        {/* <pre>
-              {this.state.board}
-            </pre> */}
-        {/* <Circle /> */}
+      <div className="container board-container" >
         {boardView}
-        {/* </div> */}
-        {/* </div> */}
       </div>
     )
   }
