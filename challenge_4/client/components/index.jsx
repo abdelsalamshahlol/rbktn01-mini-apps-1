@@ -1,4 +1,5 @@
 import React from 'react';
+import {checkBoard} from  '../helpers/boardChecking.js';
 import Row from './row.jsx';
 
 class Index extends React.Component {
@@ -25,7 +26,9 @@ class Index extends React.Component {
 
         // shallow copy of the matrix
         let board = this.state.board;
-        let currentTurn = this.state.playerTurn;
+        let currentTurn = this.state.playerTurn === 1 ? 'R' : 'Y';
+
+        console.log( checkBoard(board))
 
         // Find the first row where cells are empty and insert at column
         for (let row = 5; row >= 0; row--){
@@ -36,14 +39,14 @@ class Index extends React.Component {
         }
 
         // Update the state of board and the view by setting the board to shallow copy
-        let nextPlayer = currentTurn === 1 ? 2 : 1;
+        let nextPlayer = currentTurn === 'R' ? 2 : 1;
 
         this.setState({
             board: board,
             playerTurn: nextPlayer
         });
 
-        console.log(this.state.board,board)
+        console.log(this.state.board);
     }
 
     render() {
