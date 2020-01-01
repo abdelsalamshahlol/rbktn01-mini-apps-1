@@ -8,8 +8,8 @@ class Cell extends React.Component {
     render() {
         return (
             <div className="col">
-                <div className="circle" onClick={() => this.props.handlePushColumn(this.props.column)}>
-                    {this.props.value + " || " + this.props.column}
+                <div className={(this.props.value === 1 ? ' redCell ' : this.props.value === 2 ? ' yellowCell' : '')  + " cell"}
+                        onClick={() => this.props.handlePushColumn(this.props.column)}>
                 </div>
             </div>
         )
