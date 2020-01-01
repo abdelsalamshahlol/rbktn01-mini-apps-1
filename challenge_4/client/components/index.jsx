@@ -30,34 +30,35 @@ class Index extends React.Component {
         let board = this.state.board;
         let currentTurn = this.state.playerTurn === 1 ? 'R' : 'Y';
 
-        console.log(checkBoard(board))
-
         let gameIsOver = checkBoard(board);
 
-        if (gameIsOver) {
-            // Show game over
-
-            return;
-        }
-        // Find the first row where cells are empty and insert at column
-        for (let row = 5; row >= 0; row--) {
-            if (!board[row][column]) {
-                board[row][column] = currentTurn;
-                break;
+        if (!gameIsOver) {
+            // Find the first row where cells are empty and insert at column
+            for (let row = 5; row >= 0; row--) {
+                if (!board[row][column]) {
+                    board[row][column] = currentTurn;
+                    break;
+                }
             }
+
+            // Update the state of board and the view by setting the board to shallow copy
+            let nextPlayer = currentTurn === 'R' ? 2 : 1;
+
+            this.setState({
+                board: board,
+                playerTurn: nextPlayer
+            });
+            console.log(this.state.board);
+            console.log(checkBoard(board));
         }
 
-        // Update the state of board and the view by setting the board to shallow copy
-        let nextPlayer = currentTurn === 'R' ? 2 : 1;
-
-        this.setState({
-            board: board,
-            playerTurn: nextPlayer
-        });
-
-        console.log(this.state.board);
-        console.log(checkBoard(board))
-
+        gameIsOver = checkBoard(board);
+        if(gameIsOver){
+            // Show game over
+            this.setState({
+                message: `Player ${gameIsOver.player} won.. Game is over!`
+            });
+        }
     }
 
     render() {

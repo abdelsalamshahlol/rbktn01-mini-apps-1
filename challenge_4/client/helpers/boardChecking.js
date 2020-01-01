@@ -1,20 +1,24 @@
 function checkHorizontal(board) {
-    console.log('checking horizontal');
     // loop through the board and find four
     for (let row = board.length - 1; row >= 0; row--) {
         let redCheck = board[row].join('').match(/R{4}/g);
-        // console.log({redCheck});
-        if(redCheck){
+        let yellowCheck = board[row].join('').match(/Y{4}/g);
+
+        if (redCheck || yellowCheck) {
             return {
-                player : 1,
+                player: redCheck? 1 : 2,
                 on: `Row scored a win on ${row}`
             }
         }
     }
 }
 
+function checkVertical(board) {
+    
+}
+
 function checkBoard(board) {
-    return checkHorizontal(board);
+    return checkVertical(board) || checkHorizontal(board);
 }
 
 export {checkBoard};
