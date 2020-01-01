@@ -21,13 +21,24 @@ class Index extends React.Component {
     pushToColumn(column) {
         //access board on the state and change the color of the circle
         console.log(`Click at column ${column}`);
-        let board = this.state.board;
-        for (let row = 5; row >= 0; row--){
-            if(board[row][column]){
 
+        // shallow copy of the matrix
+        let board = this.state.board;
+
+        // Find the first row where cells are empty and insert at column
+        for (let row = 5; row >= 0; row--){
+            if(!board[row][column]){
+                board[row][column] = 1;
+                break;
             }
         }
-        // this.state.board[r][c] = 1;
+
+        // Update the state of board and the view by setting the board to shallow copy
+        this.setState({
+            board: board
+        });
+
+        console.log(this.state.board,board)
     }
 
     render() {
