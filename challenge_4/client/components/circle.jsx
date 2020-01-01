@@ -13,7 +13,7 @@ class Circle extends React.Component {
     return (
       <div className="circle" onClick={() => this.props.handlePushColumn(this.props.row, this.props.column)}>
         {/* {this.props.x + " | " + this.props.y} */}
-        {this.state.color}
+        {this.props.value}
       </div>
     )
   }
