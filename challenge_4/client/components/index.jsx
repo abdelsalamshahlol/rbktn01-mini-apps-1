@@ -1,5 +1,4 @@
 import React from 'react';
-import Cell from './cell.jsx';
 import Row from './row.jsx';
 
 class Index extends React.Component {
@@ -8,19 +7,26 @@ class Index extends React.Component {
         this.state = {
             board:
                 [
-                    [0, 0, 0, 0, 0, 0, 0],
-                    [0, 0, 0, 0, 0, 0, 0],
-                    [0, 0, 0, 0, 0, 0, 0],
-                    [0, 0, 0, 0, 0, 0, 0],
-                    [0, 0, 0, 0, 0, 0, 0],
-                    [0, 0, 0, 0, 0, 0, 0],
+                    Array.from({length:6}),
+                    Array.from({length:6}),
+                    Array.from({length:6}),
+                    Array.from({length:6}),
+                    Array.from({length:6}),
+                    Array.from({length:6}),
+
                 ]
         }
     }
 
-    pushToColumn(r, c) {
+    pushToColumn(column) {
         //access board on the state and change the color of the circle
-        console.log(`Click at ${r} and ${c}`);
+        console.log(`Click at column ${column}`);
+        let board = this.state.board;
+        for (let row = 5; row >= 0; row--){
+            if(board[row][column]){
+
+            }
+        }
         // this.state.board[r][c] = 1;
     }
 
