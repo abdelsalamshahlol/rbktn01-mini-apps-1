@@ -8,14 +8,16 @@ class Cell extends React.Component {
     }
   }
 
-  render() {
-    return (
-      <div className="circle" onClick={() => this.props.handlePushColumn(this.props.row, this.props.column)}>
-         {this.props.row + " | " + this.props.column}
-        {/*{this.props.value}*/}
-      </div>
-    )
-  }
+    render() {
+        return (
+            <div className="col">
+                <div className="circle" onClick={() => this.props.handlePushColumn(this.props.row, this.props.column)}>
+                    {this.props.row + " | " + this.props.cell}
+                    {/*{this.props.value}*/}
+                </div>
+            </div>
+        )
+    }
 }
 
 export default Cell;

@@ -1,14 +1,16 @@
 import React from 'react';
+import Cell from './cell.jsx';
 
-const Row = ({circles})=>{
-    // const rowData = circles.map((circle, i)=>{
-    //     return circle;
-    // })
+const Row = ({row, pushToColumn})=>{
     return (
         <div className="row my-2">
-            {circles}
+            {
+                row.map((cell, i)=>{
+                    return <Cell row={i} cell={cell} key={i} handlePushColumn={pushToColumn}/>
+                })
+            }
         </div>
-        );
+    );
 }
 
 export default Row;
