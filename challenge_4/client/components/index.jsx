@@ -1,5 +1,6 @@
 import React from 'react';
-import Circle from './circle.jsx';
+import Cell from './cell.jsx';
+import Row from './row.jsx';
 
 class Index extends React.Component {
     constructor(props) {
@@ -28,19 +29,19 @@ class Index extends React.Component {
         let pushToColumn = this.pushToColumn.bind(this);
         const boardView = [];
 
-        for (let i = 0; i < 6; i++) {
+        for (let i = 5; i >=0; i--) {
             let row = [];
-            for (let j = 0; j < 7; j++) {
+            for (let j = 0; j <= 6; j++) {
                 row.push(
-                    <div className="col">
-                        <Circle row={i} column={j} value={this.state.board[i][j]} key={`row-${i} col-${j}`}
-                                handlePushColumn={pushToColumn}/>
+                    <div className="col" key={i + j}>
+                        <Cell row={i} column={j} key={`row-${i} col-${j}`}
+                              handlePushColumn={pushToColumn}/>
                     </div>
                 );
             }
 
             boardView.push(
-                <div className="row my-2" key={`row-${i}`}> {row}</div>
+                <Row circles={row} key={i} />
             );
         }
         return (
