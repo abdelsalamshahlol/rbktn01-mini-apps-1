@@ -1,5 +1,5 @@
 import React from 'react';
-import {checkBoard} from  '../helpers/boardChecking.js';
+import {checkBoard} from '../helpers/boardChecking.js';
 import Row from './row.jsx';
 import Banner from './banner.jsx';
 
@@ -7,18 +7,18 @@ class Index extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            playerTurn:1,
+            playerTurn: 1,
             board:
                 [
-                    Array.from({length:6}),
-                    Array.from({length:6}),
-                    Array.from({length:6}),
-                    Array.from({length:6}),
-                    Array.from({length:6}),
-                    Array.from({length:6}),
+                    Array.from({length: 6}),
+                    Array.from({length: 6}),
+                    Array.from({length: 6}),
+                    Array.from({length: 6}),
+                    Array.from({length: 6}),
+                    Array.from({length: 6}),
 
                 ],
-            message:''
+            message: ''
         }
     }
 
@@ -30,18 +30,18 @@ class Index extends React.Component {
         let board = this.state.board;
         let currentTurn = this.state.playerTurn === 1 ? 'R' : 'Y';
 
-        console.log( checkBoard(board))
+        console.log(checkBoard(board))
 
         let gameIsOver = checkBoard(board);
 
-        if(gameIsOver){
+        if (gameIsOver) {
             // Show game over
 
             return;
         }
         // Find the first row where cells are empty and insert at column
-        for (let row = 5; row >= 0; row--){
-            if(!board[row][column]){
+        for (let row = 5; row >= 0; row--) {
+            if (!board[row][column]) {
                 board[row][column] = currentTurn;
                 break;
             }
@@ -56,12 +56,14 @@ class Index extends React.Component {
         });
 
         console.log(this.state.board);
+        console.log(checkBoard(board))
+
     }
 
     render() {
         let pushToColumn = this.pushToColumn.bind(this);
-        const boardView = this.state.board.map((row, i)=> {
-           return <Row row={row} key={i} pushToColumn={pushToColumn}/>;
+        const boardView = this.state.board.map((row, i) => {
+            return <Row row={row} key={i} pushToColumn={pushToColumn}/>;
         });
 
         return (
