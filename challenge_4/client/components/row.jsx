@@ -5,8 +5,8 @@ const Row = ({row, pushToColumn})=>{
     return (
         <div className="row my-2">
             {
-                row.map((cell, i)=>{
-                    return <Cell row={i} cell={cell} key={i} handlePushColumn={pushToColumn}/>
+                row.map((value, i)=>{
+                    return <Cell row={row} column={i} value={value} key={i} handlePushColumn={pushToColumn}/>
                 })
             }
         </div>

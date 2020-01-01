@@ -26,25 +26,11 @@ class Index extends React.Component {
 
     render() {
         let pushToColumn = this.pushToColumn.bind(this);
+
         const boardView = this.state.board.map((row, i)=> {
            return <Row row={row} key={i} pushToColumn={pushToColumn}/>;
         });
 
-        // for (let i = 5; i >= 0; i--) {
-        //     let row = [];
-        //     for (let j = 0; j <= 6; j++) {
-        //         row.push(
-        //             <div className="col" key={i + j}>
-        //                 <Cell row={i} column={j} key={`row-${i} col-${j}`}
-        //                       handlePushColumn={pushToColumn}/>
-        //             </div>
-        //         );
-        //     }
-        //
-        //     boardView.push(
-        //         <Row circles={row} key={i}/>
-        //     );
-        // }
         return (
             <div className="container board-container">
                 {boardView}
