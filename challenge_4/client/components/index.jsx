@@ -1,6 +1,7 @@
 import React from 'react';
 import {checkBoard} from  '../helpers/boardChecking.js';
 import Row from './row.jsx';
+import Banner from './banner.jsx';
 
 class Index extends React.Component {
     constructor(props) {
@@ -16,7 +17,8 @@ class Index extends React.Component {
                     Array.from({length:6}),
                     Array.from({length:6}),
 
-                ]
+                ],
+            message:''
         }
     }
 
@@ -30,6 +32,13 @@ class Index extends React.Component {
 
         console.log( checkBoard(board))
 
+        let gameIsOver = checkBoard(board);
+
+        if(gameIsOver){
+            // Show game over
+
+            return;
+        }
         // Find the first row where cells are empty and insert at column
         for (let row = 5; row >= 0; row--){
             if(!board[row][column]){
@@ -56,10 +65,13 @@ class Index extends React.Component {
         });
 
         return (
-            <div className="container board-container">
-                {boardView}
-            </div>
-        )
+            <section>
+                <Banner message={this.state.message}/>
+                <div className="container board-container pb-4">
+                    {boardView}
+                </div>
+            </section>
+        );
     }
 }
 
